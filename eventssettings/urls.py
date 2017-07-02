@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^$', eventsapp.views.index, name='index'),
     url(r'^db', eventsapp.views.db, name='db'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^followGroups', eventsapp.views.follow, name='follow'),
 ]
