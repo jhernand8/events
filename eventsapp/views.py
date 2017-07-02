@@ -11,9 +11,25 @@ def index(request):
 
 def follow(request):
   meetupNames = request.POST.getlist('meetupgroup')
+  allGroups = MeetupGroup.objects.all()
   for name in meetupNames:
+    if name is None or name == "":
+      continue
+    
+    # make sure there is not already an entry in groups
+    exists = False
+    for existGroup in allGroups:
+      if existGroup.url_name == name:
+        exists = True
+        break
+    if exists:
+      continue
+
+    # currently does not check the form itself for duplicates
+
     meetupGroup = MeetupGroup(name)
     meetupGroup.save()
+
   return HttpResponse('Success!')
 
 

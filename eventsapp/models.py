@@ -10,4 +10,14 @@ class MeetupGroup(models.Model):
   url_name = models.TextField(unique=True)
   meetup_group_id = models.AutoField(primary_key = True)
 
+# Model for representing an event for a meetup group.
+class MeetupEvent(models.Model):
+  meetup_group_id = models.IntegerField()
+  name = models.TextField()
+  num_attendees = models.IntegerField()
+  event_date = models.DateTimeField()
+  event_id = models.TextField()
+  city = models.TextField()
+  event_url = models.TextField()
+  meetup_event_id = models.AutoField(primary_key = True)
 
