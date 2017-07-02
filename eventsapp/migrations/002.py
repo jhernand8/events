@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     initial = False
 
-    dependencies = [
+    dependencies = [ ('eventsapp', '0001_initial')
     ]
 
     operations = [
