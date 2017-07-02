@@ -1,6 +1,9 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.serializers.json import DjangoJSONEncoder
+from datetime import datetime
+from datetime import date
 import json
+import urllib2
 from .models import MeetupGroup
 from .models import MeetupEvent
 
@@ -29,7 +32,6 @@ class Command(BaseCommand):
     for ev in jsonResp:
       meetupEv = MeetupEvent(meetup_group_id = group.meetup_group_id,
                              name = ev["name"],
-                             num_attendees = int(ev.yes_rsvp_count),
                              num_attendees = int(ev["yes_rsvp_count"]),
                              event_id = ev["id"],
                              event_url = ev["link"]
