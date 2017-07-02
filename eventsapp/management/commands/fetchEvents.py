@@ -4,8 +4,8 @@ from datetime import datetime
 from datetime import date
 import json
 from urllib.request import urlopen
-from .models import MeetupGroup
-from .models import MeetupEvent
+from eventsapp.models import MeetupGroup
+from eventsapp.models import MeetupEvent
 
 # Cron job that runs that fetches events for each group in MeetupGroups
 # and saves upcoming meetups to the database. Also deletes meetups that
