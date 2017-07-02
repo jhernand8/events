@@ -1,3 +1,4 @@
+Cloned from Heroku's python-getting-started. Creating heroku app for list of events.
 # python-getting-started
 
 A barebones Python app, which can easily be deployed to Heroku.
