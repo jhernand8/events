@@ -8,6 +8,7 @@ from .models import MeetupGroup
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
+    groups = MeetupGroup.objects.all();
     context = RequestContext(request, {
         'groups': groups});
     return render(request, 'index.html', context)
