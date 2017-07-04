@@ -9,21 +9,56 @@ var groups = {{ groups }};
 
 var events = {{ events }};
 
-var MeetupGroups = React.createClass({
+
+var EventsForGroup = React.createClass({
   render: function() {
+  
+    var evList = [];
+    for (var i = 0; i < this.props.events.length; i++) {
+      var ev = this.props.events[i];
+      var evEl = <li>{ev.name}  ({ev.attendees})</li>;
+      evList.push(evEl);
+    }
+    return 
+      <div className="groupDiv">
+        <span className="groupName">
+          <a href="https://www.meetup.com/{this.props.group.url}/">{this.props.group.url}</a>
+        </span>
+        <br/><br/>
+        <ul>{evList}</ul>
+      </div>;
+
+  }
+});
+
+
+var MeetupGroupsAndEvents = React.createClass({
+  
+  render: function() {
+
     var groupList = [];
     for (var i = 0; i < this.props.groups.length; i++) {
       var currGroup = this.props.groups[i];
-      groupList.push(<li>{currGroup.url}</li>);
-      //groupList.push(<li{currGroup.get("name")}</li>);
+      var currId = currGroup.id;
+   
+      // filter for events for the current group   
+      var eventsForGroup = [];
+      for (var j = 0; u < this.props.events.length; j++) {
+        if (this.props.events[j].groupId === currId) {
+          eventsForGroup.push(this.props.events[j]);
+        }
+      }
+
+      groupList.push(<EventsForGroup group={currGroup} events={eventsForGroup}/>);
+
     }
-    return <ul>{groupList}</ul>;
+    return <div>{groupList}</div>;
   }
 });
 
 
 React.renderComponent(
-  <MeetupGroups groups={groups} />,
+  <MeetupGroupsAndEvents groups={groups} events={events} />,
   document.getElementById("groupsDiv"));
 </script>
 </head>
