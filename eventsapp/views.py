@@ -8,10 +8,13 @@ import json
 
 from .models import Greeting
 from .models import MeetupGroup
+from .models import MeetupEvent
 
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
+
+    # load group data
     groups = MeetupGroup.objects.all();
     groupList = [];
     for group in groups:
@@ -19,8 +22,24 @@ def index(request):
       gr["url"] = group.url_name
       gr["id"] = group.meetup_group_id
       groupList.append(gr)
+
+    events = MeetupEvent.objects.all()
+    eventsList = []
+    for event in events:
+        currEv = {}
+        currEv["groupId"] = event.meetup_group_id
+        currEv["name"] = event.name
+        currEv["attendees"] = event.num_attendees
+        currEv["date"] = event.event_date
+        currEv["url"] = event.event_url
+        eventsList.append(currEv);
+
+
+    # load event data
     context = RequestContext(request, {
-        'groups': mark_safe(json.dumps(groupList, cls=DjangoJSONEncoder))});
+        'groups': mark_safe(json.dumps(groupList, cls=DjangoJSONEncoder)),
+        'events': mark_safe(json.dumps(eventsList, cls=DjangoJSONEncoder))
+    });
     return render(request, 'index.html', context)
 
 def follow(request):
