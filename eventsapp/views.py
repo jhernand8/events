@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.template import RequestContext, loader
 
 from .models import Greeting
 from .models import MeetupGroup
@@ -7,7 +8,11 @@ from .models import MeetupGroup
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    return render(request, 'index.html')
+    groups = MeetupGroup.objects.all();
+    context = RequestContext(request, {
+        'groups', groups});
+    template = loader.get_template('index.html');
+    return HttpResponse(template.render(context))
 
 def follow(request):
   meetupNames = request.POST.getlist('meetupgroup')
