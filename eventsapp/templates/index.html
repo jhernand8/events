@@ -19,14 +19,13 @@ var EventsForGroup = React.createClass({
       var evEl = <li>{ev.name}  ({ev.attendees})</li>;
       evList.push(evEl);
     }
-    return 
-      <div className="groupDiv">
+    return (<div className="groupDiv">
         <span className="groupName">
-          <a href="https://www.meetup.com/{this.props.group.url}/">{this.props.group.url}</a>
+          <a href={"https://www.meetup.com/" + this.props.group.url + "/"}>{this.props.group.url}</a>
         </span>
         <br/><br/>
         <ul>{evList}</ul>
-      </div>;
+      </div>);
 
   }
 });
