@@ -12,7 +12,7 @@ var MeetupGroups = React.createClass({
     var groupList = [];
     for (var i = 0; i < this.props.groups.length; i++) {
       var currGroup = this.props.groups[i];
-      groupList.push(<li>{currGroup.name}</li>);
+      groupList.push(<li>{currGroup.url}</li>);
       //groupList.push(<li{currGroup.get("name")}</li>);
     }
     return <ul>{groupList}</ul>;
