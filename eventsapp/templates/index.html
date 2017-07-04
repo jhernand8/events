@@ -43,7 +43,7 @@ var MeetupGroupsAndEvents = React.createClass({
    
       // filter for events for the current group   
       var eventsForGroup = [];
-      for (var j = 0; u < this.props.events.length; j++) {
+      for (var j = 0; j < this.props.events.length; j++) {
         if (this.props.events[j].groupId === currId) {
           eventsForGroup.push(this.props.events[j]);
         }
