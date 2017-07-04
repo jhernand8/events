@@ -9,7 +9,13 @@ var groups = {{ groups }};
 
 var MeetupGroups = React.createClass({
   render: function() {
-    return <ul></ul>;
+    var groupList = [];
+    for (var i = 0; i < this.props.groups.length; i++) {
+      var currGroup = this.props.groups[i];
+      groupList.push(<li>{currGroup.name}</li>);
+      //groupList.push(<li{currGroup.get("name")}</li>);
+    }
+    return <ul>{groupList}</ul>;
   }
 });
 

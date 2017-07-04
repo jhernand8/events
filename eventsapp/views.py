@@ -2,6 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import RequestContext, loader
 
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.safestring import mark_safe
+import json
+
 from .models import Greeting
 from .models import MeetupGroup
 
@@ -9,8 +13,14 @@ from .models import MeetupGroup
 def index(request):
     # return HttpResponse('Hello from Python!')
     groups = MeetupGroup.objects.all();
+    groupList = [];
+    for group in groups:
+      gr = {}
+      gr["url"] = group.url_name
+      gr["id"] = group.meetup_group_id
+      groupList.append(gr)
     context = RequestContext(request, {
-        'groups': groups});
+        'groups': mark_safe(json.dumps(groupList, cls=DjangoJSONEncoder))});
     return render(request, 'index.html', context)
 
 def follow(request):
