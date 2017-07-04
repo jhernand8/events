@@ -15,7 +15,7 @@ class MeetupEvent(models.Model):
   meetup_group_id = models.IntegerField()
   name = models.TextField()
   num_attendees = models.IntegerField()
-  event_time_ms = models.IntegerField(blank=True, null=True)
+  event_time_ms = models.BigIntegerField(blank=True, null=True)
   event_id = models.TextField()
   city = models.TextField(blank=True, null=True)
   event_url = models.TextField()

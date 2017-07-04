@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('meetup_group_id', models.IntegerField(unique=False, verbose_name='Meetup Group ID foreign key')),
                 ('name', models.TextField(unique=False, verbose_name='Meetup Event Name')),
                 ('num_attendees', models.IntegerField(unique=False, verbose_name='Number of attendees')),
-                ('event_time_ms', models.IntegerField(unique=False, verbose_name='Event date UTC offset ms')),
+                ('event_time_ms', models.BigIntegerField(unique=False, verbose_name='Event date UTC offset ms')),
                 ('event_id', models.TextField(unique=False, verbose_name='Meetup event id in Meetup')),
                 ('city', models.TextField(unique=False, verbose_name='Meetup  location city')),
                 ('event_url', models.TextField(unique=True, verbose_name='Meetup url for event')),
