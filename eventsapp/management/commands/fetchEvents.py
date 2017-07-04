@@ -30,12 +30,16 @@ class Command(BaseCommand):
     jsonResp = json.load(resp)
 
     for ev in jsonResp:
+      city = None
+      if "location" in ev and "city" in ev["location"]:
+        city = ev["location"]["city"]
       meetupEv = MeetupEvent(meetup_group_id = group.meetup_group_id,
                              name = ev["name"],
                              num_attendees = int(ev["yes_rsvp_count"]),
                              event_id = ev["id"],
-                             event_url = ev["link"]
-                             );
+                             event_url = ev["link"],
+                             event_time_ms = int(ev["time"]),
+                             city = city);
       meetupEv.save()
 
 

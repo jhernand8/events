@@ -32,6 +32,8 @@ def index(request):
         currEv["attendees"] = event.num_attendees
         currEv["date"] = event.event_date
         currEv["url"] = event.event_url
+        currEv["time"] = event.event_time_ms
+        currEv["city"] = event.city
         eventsList.append(currEv);
 
 
