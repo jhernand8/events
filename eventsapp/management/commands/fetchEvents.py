@@ -35,6 +35,8 @@ class Command(BaseCommand):
       city = None
       if "location" in ev and "city" in ev["location"]:
         city = ev["location"]["city"]
+      if "venue" in ev and "city" in ev["venue"]:
+        city = ev["venue"]["city"]
       meetupEv = MeetupEvent(meetup_group_id = group.meetup_group_id,
                              name = ev["name"],
                              num_attendees = int(ev["yes_rsvp_count"]),

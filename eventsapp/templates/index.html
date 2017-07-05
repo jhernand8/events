@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.groupDiv ul {
+    padding-top: 10px;
+    margin-top: 0px;
+}
+groupDiv .groupName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+</style>
 <script src="https://fb.me/react-0.12.0.js"></script>
 <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
 <script type="text/jsx">
@@ -16,14 +27,18 @@ var EventsForGroup = React.createClass({
     var evList = [];
     for (var i = 0; i < this.props.events.length; i++) {
       var ev = this.props.events[i];
-      var evEl = <li>{ev.name}  ({ev.attendees})</li>;
+      var city = "";
+      if (ev.city && ev.city != null) {
+        city = ev.city;
+      }
+      var evEl = <li>{ev.name}  (<span className="numAttend">{ev.attendees}</span>) - <span className="city">{city}</span></li>;
       evList.push(evEl);
     }
     return (<div className="groupDiv">
         <span className="groupName">
           <a href={"https://www.meetup.com/" + this.props.group.url + "/"}>{this.props.group.url}</a>
         </span>
-        <br/><br/>
+        <br/>
         <ul>{evList}</ul>
       </div>);
 
