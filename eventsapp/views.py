@@ -30,7 +30,6 @@ def index(request):
         currEv["groupId"] = event.meetup_group_id
         currEv["name"] = event.name
         currEv["attendees"] = event.num_attendees
-        currEv["date"] = event.event_date
         currEv["url"] = event.event_url
         currEv["time"] = event.event_time_ms
         currEv["city"] = event.city
