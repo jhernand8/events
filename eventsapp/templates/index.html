@@ -33,7 +33,11 @@ var EventsForGroup = React.createClass({
       if (ev.city && ev.city != null) {
         city = ev.city;
       }
-      var evEl = <li>{ev.name}  (<span className="numAttend">{ev.attendees}</span>) - <span className="city">{city}</span></li>;
+      var evDate = "";
+      if (ev.time && ev.time != null) {
+        evDate = (new Date(Number(ev.time))).toString('ddd MMM d, yyyy hh');
+      }
+      var evEl = <li>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
       evList.push(evEl);
     }
     return (<div className="groupDiv">
