@@ -3,6 +3,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 from datetime import date
 import json
+import time
 from urllib.request import urlopen
 from eventsapp.models import MeetupGroup
 from eventsapp.models import MeetupEvent
@@ -15,7 +16,8 @@ class Command(BaseCommand):
   def handle(self, *args, **options):
     allGroups = MeetupGroup.objects.all()
     for currGroup in allGroups:
-      self.handleEventsForGroup(currGroup) 
+      self.handleEventsForGroup(currGroup)
+      time.sleep(0.4); # sleep so we don't get 429 error from Meetup
   
   def handleEventsForGroup(self, group):
     # delete existing events for this group as we will refetch everything
