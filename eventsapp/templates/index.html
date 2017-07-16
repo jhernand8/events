@@ -11,6 +11,12 @@ groupDiv .groupName {
     font-weight: bold;
 }
 
+li.nextTwoWeeks {
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 </style>
 {% load static %}
 <script src="{% static 'date.js'%}"></script>
@@ -34,10 +40,17 @@ var EventsForGroup = React.createClass({
         city = ev.city;
       }
       var evDate = "";
+      var dateDiff = 200;
       if (ev.time && ev.time != null) {
         evDate = (new Date(Number(ev.time))).toString('ddd MMM d, yyyy H');
+        var tDiff = evDate.getTime() - (new Date()).getTime();
+        dateDiff = tDiff / (1000  * 60 * 60 * 24);
       }
-      var evEl = <li>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
+      var evLiClass = "normal";
+      if (dateDiff > -1 && dateDiff < 14) {
+        evLiClass = "nextTwoWeeks";
+      }
+      var evEl = <li className={evLiClass}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
       evList.push(evEl);
     }
     return (<div className="groupDiv">
