@@ -43,7 +43,7 @@ var EventsForGroup = React.createClass({
       var dateDiff = 200;
       if (ev.time && ev.time != null) {
         evDate = (new Date(Number(ev.time))).toString('ddd MMM d, yyyy H');
-        var tDiff = evDate.getTime() - (new Date()).getTime();
+        var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
         dateDiff = tDiff / (1000  * 60 * 60 * 24);
       }
       var evLiClass = "normal";
