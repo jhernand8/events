@@ -46,11 +46,26 @@ var EventsForGroup = React.createClass({
         var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
         dateDiff = tDiff / (1000  * 60 * 60 * 24);
       }
+      var fontSize = 16;
       var evLiClass = "normal";
       if (dateDiff > -1 && dateDiff < 14) {
         evLiClass = "nextTwoWeeks";
       }
-      var evEl = <li className={evLiClass}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
+      if (dateDiff > 0 && dateDiff < 8) {
+        evLiClass += " nextWeek ";
+      }
+      if (dateDiff > 20) {
+        evLiClass += " beyond";
+        fontSize -= 4;
+      }
+      if (ev.attendees < 5) {
+        fontSize -= 4;
+      }
+      if (ev.attendees > 15) {
+        fontSize += 5;
+      }
+      var liStyle = { fontSize: fontSize + "px"};
+      var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
       evList.push(evEl);
     }
     return (<div className="groupDiv">
