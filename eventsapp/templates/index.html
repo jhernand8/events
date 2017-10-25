@@ -35,37 +35,7 @@ var EventsForGroup = React.createClass({
     var evList = [];
     for (var i = 0; i < this.props.events.length; i++) {
       var ev = this.props.events[i];
-      var city = "";
-      if (ev.city && ev.city != null) {
-        city = ev.city;
-      }
-      var evDate = "";
-      var dateDiff = 200;
-      if (ev.time && ev.time != null) {
-        evDate = (new Date(Number(ev.time))).toString('ddd MMM d, yyyy H');
-        var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
-        dateDiff = tDiff / (1000  * 60 * 60 * 24);
-      }
-      var fontSize = 16;
-      var evLiClass = "normal";
-      if (dateDiff > -1 && dateDiff < 14) {
-        evLiClass = "nextTwoWeeks";
-      }
-      if (dateDiff > 0 && dateDiff < 8) {
-        evLiClass += " nextWeek ";
-      }
-      if (dateDiff > 20) {
-        evLiClass += " beyond";
-        fontSize -= 4;
-      }
-      if (ev.attendees < 5) {
-        fontSize -= 4;
-      }
-      if (ev.attendees > 15) {
-        fontSize += 5;
-      }
-      var liStyle = { fontSize: fontSize + "px"};
-      var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
+      var evEl = <EventElement event={ev} dateFormat="ddd MMM d, yyyy H'/>;
       evList.push(evEl);
     }
     return (<div className="groupDiv">
@@ -79,6 +49,46 @@ var EventsForGroup = React.createClass({
   }
 });
 
+/**
+ * Element to render a single event in an li.
+ */
+var EventElement = React.createClass({
+  render: function() {
+    var ev = this.props.event;
+    var city = "";
+    if (ev.city && ev.city != null) {
+      city = ev.city;
+    }
+    var evDate = "";
+    var dateDiff = 200;
+    if (ev.time && ev.time != null) {
+      evDate = (new Date(Number(ev.time))).toString(this.props.dateFormat);
+      var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
+      dateDiff = tDiff / (1000  * 60 * 60 * 24);
+    }
+    var fontSize = 16;
+    var evLiClass = "normal";
+    if (dateDiff > -1 && dateDiff < 14) {
+      evLiClass = "nextTwoWeeks";
+    }
+    if (dateDiff > 0 && dateDiff < 8) {
+      evLiClass += " nextWeek ";
+    }
+    if (dateDiff > 20) {
+      evLiClass += " beyond";
+      fontSize -= 4;
+    }
+    if (ev.attendees < 5) {
+      fontSize -= 4;
+    }
+    if (ev.attendees > 15) {
+      fontSize += 5;
+    }
+    var liStyle = { fontSize: fontSize + "px"};
+    var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
+    return evEl;
+  }
+});
 
 var MeetupGroupsAndEvents = React.createClass({
   
@@ -104,10 +114,46 @@ var MeetupGroupsAndEvents = React.createClass({
   }
 });
 
+var UpcomingWeekend = React.createClass({
+
+  render: function() {
+
+    var groupById = {};
+    for (var i = 0; i < this.props.groups.length; i++) {
+      groupById[this.props.groups[i].id + ""] = this.props.groups[i];
+    }
+
+    var els = [];
+
+    for (var e = 0; e < this.props.events.length; e++) {
+      var ev = this.props.events[e];
+      var evDate = new Date(Number(ev.time));
+      if (evDate.getDay() === 0 || evDate.getDay() > 4) {
+        var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
+        dateDiff = tDiff / (1000  * 60 * 60 * 24);
+        if (dateDiff < 7) {
+          var evEl = <EventElement event={ev} dateFormat="ddd MM d  H"/>;
+          els.push(evEl);
+        }
+      }
+    }     
+
+    return <div>
+      <span id="upcomingTitle">Upcoming by date</span><br/>
+      <ul> {els} </ul>;
+    </div>
+
+  }
+
+});
+
 
 React.renderComponent(
   <MeetupGroupsAndEvents groups={groups} events={events} />,
   document.getElementById("groupsDiv"));
+React.renderComponent(
+  <UpcomingWeekend groups={groups} events={events} />,
+  document.getElementById("upcoming"));
 </script>
 </head>
 <body>
@@ -115,6 +161,8 @@ React.renderComponent(
 <h2>Events</h2>
 <h2>Groups</h2>
 <div id="groupsDiv"></div>
+<br/><br/>
+<div id="upcoming"></div>
 <h2>Add Meetup Groups</h2>
 <form action="followGroups" method="POST">
   <ul>
