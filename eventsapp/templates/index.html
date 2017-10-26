@@ -123,10 +123,17 @@ var UpcomingWeekend = React.createClass({
       groupById[this.props.groups[i].id + ""] = this.props.groups[i];
     }
 
+    var sortedEvs = [];
+    this.props.events.forEach(function(el) {
+      sortedEvs.push(el);
+    }
+    // sort based on time
+    sortedEvs.sort(function(a, b) {
+      return Number(a.time) - Number(b.time);
+    });
     var els = [];
 
-    for (var e = 0; e < this.props.events.length; e++) {
-      var ev = this.props.events[e];
+    sortedEvs.forEach(function(ev) {
       var evDate = new Date(Number(ev.time));
       if (evDate.getDay() === 0 || evDate.getDay() > 4) {
         var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
@@ -136,7 +143,7 @@ var UpcomingWeekend = React.createClass({
           els.push(evEl);
         }
       }
-    }     
+    });   
 
     return <div>
       <span id="upcomingTitle">Upcoming by date</span><br/>
