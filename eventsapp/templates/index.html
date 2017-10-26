@@ -126,7 +126,7 @@ var UpcomingWeekend = React.createClass({
     var sortedEvs = [];
     this.props.events.forEach(function(el) {
       sortedEvs.push(el);
-    }
+    });
     // sort based on time
     sortedEvs.sort(function(a, b) {
       return Number(a.time) - Number(b.time);
