@@ -97,8 +97,13 @@ var EventElement = React.createClass({
     if (day >= 1 && day <= 5 && hour > 0 && hour < 17) {
       fontSize -= 5;
     }
+    var groupNameLink = null;
+    if (this.props.includeGroup) {
+      groupNameLink = 
+          <a className="group" href={"https://www.meetup.com/" + this.props.group.url + "/"}>{this.props.group.url}</a>
+    }
     var liStyle = { fontSize: fontSize + "px"};
-    var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span></li>;
+    var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span>  {groupNameLink}</li>;
     return evEl;
   }
 });
@@ -146,7 +151,7 @@ var UpcomingWeekend = React.createClass({
     });
     var els = [];
 
-    var prevDay = new Date(Number(sortedEvs[0].time));
+    var prevDay = new Date();
     sortedEvs.forEach(function(ev) {
       var evDate = new Date(Number(ev.time));
       if (evDate.getDay() === 0 || evDate.getDay() > 4) {
@@ -155,11 +160,14 @@ var UpcomingWeekend = React.createClass({
         if (dateDiff < 7) {
           if (prevDay.getDay() !== evDate.getDay()) {
             var dayStr = evDate.toString("ddd MMM d");
-            els.push("</ul>");
             els.push(<span className="dayHeader"><br/>{dayStr}<br/></span>);
-            els.push("<ul>");
           }
-          var evEl = <EventElement event={ev} dateFormat=" htt "/>;
+          var group = groupById.get(ev.groupId);
+          var evEl = <EventElement
+                      event={ev}
+                      dateFormat=" htt "
+                      includeGroup={true}
+                      group={group}/>;
           els.push(evEl);
           prevDay = evDate; 
         }
