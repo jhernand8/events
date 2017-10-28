@@ -41,7 +41,7 @@ var EventsForGroup = React.createClass({
     var evList = [];
     for (var i = 0; i < this.props.events.length; i++) {
       var ev = this.props.events[i];
-      var evEl = <EventElement event={ev} dateFormat="ddd MMM d, yyyy H"/>;
+      var evEl = <EventElement event={ev} dateFormat="ddd MMM d, yyyy hA"/>;
       evList.push(evEl);
     }
     return (<div className="groupDiv">
@@ -63,7 +63,7 @@ var EventElement = React.createClass({
     var ev = this.props.event;
     var city = "";
     if (ev.city && ev.city != null) {
-      city = ev.city;
+      city = " in " + ev.city;
     }
     var evDate = "";
     var dateDiff = 200;
@@ -148,9 +148,10 @@ var UpcomingWeekend = React.createClass({
         if (dateDiff < 7) {
           if (prevDay.getDay() !== evDate.getDay()) {
             var dayStr = evDate.toString("ddd MMM d");
-            els.push(<span className="dayHeader"><br/>{{dayStr}}<br/></span>);
+            console.log(dayStr + ":::\n");
+            els.push(<span className="dayHeader"><br/>{dayStr}<br/></span>);
           }
-          var evEl = <EventElement event={ev} dateFormat=" H "/>;
+          var evEl = <EventElement event={ev} dateFormat=" hA "/>;
           els.push(evEl);
           prevDay = evDate; 
         }
