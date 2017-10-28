@@ -133,6 +133,7 @@ var UpcomingWeekend = React.createClass({
     });
     var els = [];
 
+    var prevDay = new Date(Number(sortedEvs[0].time));
     sortedEvs.forEach(function(ev) {
       var evDate = new Date(Number(ev.time));
       if (evDate.getDay() === 0 || evDate.getDay() > 4) {
@@ -141,9 +142,13 @@ var UpcomingWeekend = React.createClass({
         if (dateDiff < 7) {
           var evEl = <EventElement event={ev} dateFormat="ddd MM d  H"/>;
           els.push(evEl);
+          if (prevDay.getDay() !== evDate.getDay()) {
+            els.push(<span className="dayHeader"><br/>----<br/></span>);
+          }
+          prevDay = evDate; 
         }
       }
-    });   
+    });
 
     return <div>
       <span id="upcomingTitle">Upcoming by date</span><br/>
