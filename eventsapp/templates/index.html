@@ -17,6 +17,12 @@ li.nextTwoWeeks {
   padding-bottom: 5px;
 }
 
+span.dayHeader {
+  font-weight: bold;
+  padding: 20px;
+  font-size: 18px;
+}
+
 </style>
 {% load static %}
 <script src="{% static 'date.js'%}"></script>
@@ -140,11 +146,12 @@ var UpcomingWeekend = React.createClass({
         var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
         dateDiff = tDiff / (1000  * 60 * 60 * 24);
         if (dateDiff < 7) {
+          if (prevDay.getDay() !== evDate.getDay()) {
+            
+            els.push(<span className="dayHeader"><br/>{{evDate.toString("ddd MMM d")}}<br/></span>);
+          }
           var evEl = <EventElement event={ev} dateFormat="ddd MM d  H"/>;
           els.push(evEl);
-          if (prevDay.getDay() !== evDate.getDay()) {
-            els.push(<span className="dayHeader"><br/>----<br/></span>);
-          }
           prevDay = evDate; 
         }
       }
