@@ -28,6 +28,7 @@ class Command(BaseCommand):
 
     # now fetch and create events
     url = 'https://api.meetup.com/' + group.url_name + '/events?sign=true&page=10&key=573c6b134536b73f3234426519206e&&sign=true';
+    print url + "\n";
     resp = urlopen(url)
     jsonResp = json.load(resp)
 
