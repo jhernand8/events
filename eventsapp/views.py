@@ -65,7 +65,7 @@ def follow(request):
     meetupGroup.save()
 
   # now handle remove
-  toRemove = request.post.get('removegroup', '');
+  toRemove = request.POST.get('removegroup', '');
   for gr in allGroups:
     if gr.url_name == toRemove:
       gre.delete();
