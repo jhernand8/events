@@ -68,7 +68,7 @@ def follow(request):
   toRemove = request.POST.get('removegroup', '');
   for gr in allGroups:
     if gr.url_name == toRemove:
-      gre.delete();
+      gr.delete();
   return HttpResponse('Success!')
 
 
