@@ -139,7 +139,7 @@ var MeetupGroupsAndEvents = React.createClass({
   }
 });
 
-var UpcomingWeekend = React.createClass({
+var UpcomingWeek = React.createClass({
 
   render: function() {
 
@@ -161,23 +161,21 @@ var UpcomingWeekend = React.createClass({
     var prevDay = new Date();
     sortedEvs.forEach(function(ev) {
       var evDate = new Date(Number(ev.time));
-      if (evDate.getDay() === 0 || evDate.getDay() > 4) {
-        var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
-        dateDiff = tDiff / (1000  * 60 * 60 * 24);
-        if (dateDiff < 7) {
-          if (prevDay.getDay() !== evDate.getDay()) {
-            var dayStr = evDate.toString("ddd MMM d");
-            els.push(<span className="dayHeader"><br/>{dayStr}<br/></span>);
-          }
-          var group = groupById[ev.groupId + ""];
-          var evEl = <EventElement
-                      event={ev}
-                      dateFormat=" htt "
-                      includeGroup={true}
-                      group={group}/>;
-          els.push(evEl);
-          prevDay = evDate; 
+      var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
+      dateDiff = tDiff / (1000  * 60 * 60 * 24);
+      if (dateDiff < 7) {
+        if (prevDay.getDay() !== evDate.getDay()) {
+          var dayStr = evDate.toString("ddd MMM d");
+          els.push(<span className="dayHeader"><br/>{dayStr}<br/></span>);
         }
+        var group = groupById[ev.groupId + ""];
+        var evEl = <EventElement
+                    event={ev}
+                    dateFormat=" htt "
+                    includeGroup={true}
+                    group={group}/>;
+        els.push(evEl);
+        prevDay = evDate; 
       }
     });
 
@@ -195,7 +193,7 @@ React.renderComponent(
   <MeetupGroupsAndEvents groups={groups} events={events} />,
   document.getElementById("groupsDiv"));
 React.renderComponent(
-  <UpcomingWeekend groups={groups} events={events} />,
+  <UpcomingWeek groups={groups} events={events} />,
   document.getElementById("upcoming"));
 </script>
 </head>
