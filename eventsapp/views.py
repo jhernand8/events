@@ -23,7 +23,7 @@ def index(request):
       gr["url"] = group.url_name
       gr["id"] = group.meetup_group_id
       gr["name"] = group.name
-      gr["topics"] = gr.topics
+      gr["topics"] = group.topics
       groupList.append(gr)
 
     events = MeetupEvent.objects.all()
