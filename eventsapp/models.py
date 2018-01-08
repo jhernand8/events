@@ -9,6 +9,8 @@ class Greeting(models.Model):
 class MeetupGroup(models.Model):
   url_name = models.TextField(unique=True)
   meetup_group_id = models.AutoField(primary_key = True)
+  name = models.TextField()
+  topics = models.TextField()
 
 # Model for representing an event for a meetup group.
 class MeetupEvent(models.Model):
