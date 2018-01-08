@@ -9,7 +9,7 @@ import json
 from .models import Greeting
 from .models import MeetupGroup
 from .models import MeetupEvent
-import meetupUtils
+from . import meetupUtils
 
 # Create your views here.
 def index(request):
