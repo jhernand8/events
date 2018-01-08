@@ -9,7 +9,7 @@ from eventsapp.models import MeetupEvent
 
 # Helper to get the name of the group from the group url - makes request to meetup.
 def fetchNameForGroup(groupUrl):
-  url = 'https://api.meetup.com/' + groupUrl + '?sign=true&page=10&key=&' + getApiKey() + '&sign=true&only=name';
+  url = 'https://api.meetup.com/' + groupUrl + '?sign=true&page=10&key=' + getApiKey() + '&sign=true&only=name';
   resp = urlopen(url)
   jsonResp = json.load(resp)
   if "name" in jsonResp:
