@@ -33,6 +33,12 @@ var groups = {{ groups }};
 
 var events = {{ events }};
 
+function getName(group) {
+  if (group.name && group.name !== '') {
+    return group.name;
+  }
+  return group.url;
+}
 
 var EventsForGroup = React.createClass({
   render: function() {
@@ -43,9 +49,10 @@ var EventsForGroup = React.createClass({
       var evEl = <EventElement event={ev} dateFormat="ddd MMM d, yyyy htt"/>;
       evList.push(evEl);
     }
+    var grName = getName(this.props.group);
     return (<div className="groupDiv">
         <span className="groupName">
-          <a href={"https://www.meetup.com/" + this.props.group.url + "/"}>{this.props.group.url}</a>
+          <a href={"https://www.meetup.com/" + this.props.group.url + "/"}>{grName}</a>
         </span>
         <br/>
         <ul>{evList}</ul>
@@ -100,7 +107,7 @@ var EventElement = React.createClass({
     var groupNameLink = null;
     if (this.props.includeGroup) {
       groupNameLink = 
-          <a className="group" href={"https://www.meetup.com/" + this.props.group.url + "/"}>{this.props.group.url}</a>
+          <a className="group" href={"https://www.meetup.com/" + this.props.group.url + "/"}>{getName(this.props.group)}</a>
     }
     var liStyle = { fontSize: fontSize + "px"};
     var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span>  {groupNameLink}</li>;
