@@ -106,8 +106,9 @@ var EventElement = React.createClass({
     }
     var groupNameLink = null;
     if (this.props.includeGroup) {
+      var name = getName(this.props.group);
       groupNameLink = 
-          <a className="group" href={"https://www.meetup.com/" + this.props.group.url + "/"}>{getName(this.props.group)}</a>
+          <a className="group" href={"https://www.meetup.com/" + this.props.group.url + "/"}>{name}</a>
     }
     var liStyle = { fontSize: fontSize + "px"};
     var evEl = <li className={evLiClass} style={liStyle}>{ev.name}  (<span className="numAttend">{ev.attendees}</span>)  <span className="city">{city}</span>  <span className="evDate">{evDate}</span>  {groupNameLink}</li>;
