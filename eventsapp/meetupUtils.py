@@ -19,4 +19,4 @@ def fetchNameForGroup(groupUrl):
 
 
 def getApiKey():
-  return 573c6b134536b73f3234426519206e;
+  return '573c6b134536b73f3234426519206e';
