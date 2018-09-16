@@ -168,7 +168,10 @@ var UpcomingWeek = React.createClass({
       var evDate = new Date(Number(ev.time));
       var tDiff = (new Date(Number(ev.time))).getTime() - (new Date()).getTime();
       dateDiff = tDiff / (1000  * 60 * 60 * 24);
-      if (dateDiff < 7) {
+      // upcoming week as well as following weekend
+      if (dateDiff < 7 ||
+          (dateDiff < 14 && (evDate.getDay() === 0 || evDate.getDay() === 6)))
+      {
         if (prevDay.getDay() !== evDate.getDay()) {
           var dayStr = evDate.toString("ddd MMM d");
           els.push(<span className="dayHeader"><br/>{dayStr}<br/></span>);
