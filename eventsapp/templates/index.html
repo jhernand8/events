@@ -155,14 +155,14 @@ var MeetupGroupsAndEvents = React.createClass({
    var computeScore = function(group) {
      var score = 0;
      var topics = group.topics;
-     if (topics.contains("gay") || topics.contains("lgbt")) {
+     if (topics.includes("gay") || topics.includes("lgbt")) {
        score += 10;
      }
-     if (topics.contains("hiking") || topics.contains("outdoor")) {
+     if (topics.includes("hiking") || topics.includes("outdoor")) {
        score += 5;
      }
 
-     if (topics.contains("board") && topics.contains("game")) {
+     if (topics.includes("board") && topics.includes("game")) {
        score += 2;
      }
      return score;
