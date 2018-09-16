@@ -53,6 +53,7 @@ def follow(request):
     if name is None or name == "":
       continue
     
+    name = name.replace("/", "");
     # make sure there is not already an entry in groups
     exists = False
     for existGroup in allGroups:
