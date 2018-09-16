@@ -152,7 +152,7 @@ var MeetupGroupsAndEvents = React.createClass({
     });
 
    // compute the score for sorting a group
-   var computeScore = funtion(group) {
+   var computeScore = function(group) {
      var score = 0;
      var topics = group.topics;
      if (topics.contains("gay") || topics.contains("lgbt")) {
