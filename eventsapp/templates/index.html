@@ -125,8 +125,10 @@ var MeetupGroupsAndEvents = React.createClass({
   render: function() {
 
     var groupList = [];
-    for (var i = 0; i < this.props.groups.length; i++) {
-      var currGroup = this.props.groups[i];
+
+    var allGroupsSorted = this.sortGroups();
+    for (var i = 0; i < allGroupsSorted.length; i++) {
+      var currGroup = allGroupsSorted[i];
       var currId = currGroup.id;
    
       // filter for events for the current group   
@@ -141,6 +143,37 @@ var MeetupGroupsAndEvents = React.createClass({
 
     }
     return <div>{groupList}</div>;
+  },
+
+  sortGroups: function() {
+    var sorted = [];
+    this.props.groups.forEach(function(el) {
+      sorted.push(el);
+    });
+
+   // compute the score for sorting a group
+   var computeScore = funtion(group) {
+     var score = 0;
+     var topics = group.topics;
+     if (topics.contains("gay") || topics.contains("lgbt")) {
+       score += 10;
+     }
+     if (topics.contains("hiking") || topics.contains("outdoor")) {
+       score += 5;
+     }
+
+     if (topics.contains("board") && topics.contains("game")) {
+       score += 2;
+     }
+     return score;
+   };
+   sorted.sort(function(a, b) {
+     aScore = computeScore(a);
+     bScore = computeScore(b);
+     return aScore - bScore;
+
+   });
+   return sorted;
   }
 });
 
