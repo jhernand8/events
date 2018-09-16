@@ -173,7 +173,7 @@ var MeetupGroupsAndEvents = React.createClass({
    sorted.sort(function(a, b) {
      aScore = computeScore(a);
      bScore = computeScore(b);
-     return aScore - bScore;
+     return bScore - aScore;
 
    });
    return sorted;
