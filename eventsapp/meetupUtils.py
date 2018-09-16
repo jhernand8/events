@@ -17,6 +17,18 @@ def fetchNameForGroup(groupUrl):
   print("url" + url + ": " + jsonResp + "\n\n");
   return "";
 
+# Helper to get the topics as a comma separated string.
+def fetchTopicsForGroup(groupUrl):
+  url = 'https://api.meetup.com/' + groupUrl + '?sign=true&page=10&key=' + getApiKey() + '&sign=true&only=topics';
+  resp = urlopen(url)
+  jsonResp = json.load(resp)
+  topicListStr = "";
+  if "topics" in jsonResp:
+    for currTopic in jsonResp["topics"]:
+      if "name" in currTopic:
+        topicListStr = currTopic["name"] + "," + topicListStr;
+  return topicListStr; 
+
 
 def getApiKey():
   return '573c6b134536b73f3234426519206e';

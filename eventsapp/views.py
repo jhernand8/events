@@ -66,6 +66,7 @@ def follow(request):
 
     meetupGroup = MeetupGroup(name)
     meetupGroup.name = meetupUtils.fetchNameForGroup(name);
+    meetupGroup.topics = meetupUtils.fetchTopicsForGroup(name);
     meetupGroup.save()
 
   # now handle remove
