@@ -155,6 +155,9 @@ var MeetupGroupsAndEvents = React.createClass({
    var computeScore = function(group) {
      var score = 0;
      var topics = group.topics;
+     if (topics === null) {
+       return score;
+     }
      if (topics.includes("gay") || topics.includes("lgbt")) {
        score += 10;
      }
