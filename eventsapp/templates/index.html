@@ -63,13 +63,13 @@ function formEventClassname(group, dateDiff, groupIncluded) {
   }
   if (groupIncluded && group !== null && group.topics !== null) {
     evLiClass += " ";
-    if (topics.includes("gay") || topics.includes("lgbt")) {
+    if (group.topics.includes("gay") || group.topics.includes("lgbt")) {
       evLiClass += " gay ";
     }
-    else if (topics.inludues("board") && topics.includes("game")) {
+    else if (group.topics.inludues("board") && group.topics.includes("game")) {
       evLiClass += "game";
     }
-    else if (topics.includes("hiking")) {
+    else if (group.topics.includes("hiking")) {
       evLiClass += "hiking";
     }
   }
