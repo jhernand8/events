@@ -33,6 +33,37 @@ var groups = {{ groups }};
 
 var events = {{ events }};
 
+/**
+ * Forms the classname string to use in the event list by date.
+ */
+function formEventClassname(group, dateDiff, groupIncluded) {
+  var evLiClass = "normal";
+  if (dateDiff > -1 && dateDiff < 14) {
+    evLiClass = "nextTwoWeeks";
+  }
+  if (dateDiff > 0 && dateDiff < 8) {
+    evLiClass += " nextWeek ";
+  }
+  if (dateDiff > 20) {
+    evLiClass += " beyond";
+  }
+  if (groupIncluded && group !== null && group.topics !== null) {
+    evLiClass += " ";
+    if (topics.includes("gay") || topics.includes("lgbt")) {
+      evLiClass += " gay ";
+    }
+    else if (topics.inludues("board") && topics.includes("game")) {
+      evLiClass += "game";
+    }
+    else if (topics.includes("hiking")) {
+      evLiClass += "hiking";
+    }
+  }
+
+  return evLiClass;
+}
+
+
 function getName(group) {
   if (group.name && group.name !== '') {
     return group.name;
@@ -87,15 +118,8 @@ var EventElement = React.createClass({
       hour = (new Date(Number(ev.time))).getHours();
     }
     var fontSize = 16;
-    var evLiClass = "normal";
-    if (dateDiff > -1 && dateDiff < 14) {
-      evLiClass = "nextTwoWeeks";
-    }
-    if (dateDiff > 0 && dateDiff < 8) {
-      evLiClass += " nextWeek ";
-    }
+    var evLiClass = formEventClassname(this.props.group, dateDiff, this.props.includeGroup);
     if (dateDiff > 20) {
-      evLiClass += " beyond";
       fontSize -= 4;
     }
     if (ev.attendees < 5) {
