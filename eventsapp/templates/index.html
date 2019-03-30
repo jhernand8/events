@@ -251,10 +251,11 @@ var UpcomingWeek = React.createClass({
           els.push(<span className="dayHeader"><br/>{dayStr}<br/></span>);
         }
         var group = groupById[ev.groupId + ""];
+        
         var evEl = <EventElement
                     event={ev}
                     dateFormat=" htt "
-                    includeGroup={true}
+                    includeGroup={true && group}
                     group={group}/>;
         els.push(evEl);
         prevDay = evDate; 
