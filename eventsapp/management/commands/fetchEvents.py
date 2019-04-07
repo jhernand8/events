@@ -15,10 +15,25 @@ class Command(BaseCommand):
   
   def handle(self, *args, **options):
     allGroups = MeetupGroup.objects.all()
+    // remove events for groups that have been removed
+    self.deleteOrphanedEvents(allGroups);
     for currGroup in allGroups:
       self.handleEventsForGroup(currGroup)
       time.sleep(0.4); # sleep so we don't get 429 error from Meetup
   
+  def deleteOrphanedEvents(self, groups):
+
+    allEvents = MeetupEvent.objects.all();
+    for ev in allEvents:
+      foundGroup = False;
+      for gr in groups:
+        if gr.meetup_group_id == ev.meetup_group_id:
+          foundGroup = True;
+          break;
+      if not foundGroup:
+        ev.delete();
+
+
   def handleEventsForGroup(self, group):
     # delete existing events for this group as we will refetch everything
     allEvents = MeetupEvent.objects.all()
