@@ -15,7 +15,7 @@ class Command(BaseCommand):
   
   def handle(self, *args, **options):
     allGroups = MeetupGroup.objects.all()
-    // remove events for groups that have been removed
+    # remove events for groups that have been removed
     self.deleteOrphanedEvents(allGroups);
     for currGroup in allGroups:
       self.handleEventsForGroup(currGroup)
